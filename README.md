@@ -60,7 +60,7 @@ $ npm start
 ```bash
 # generate static project and merge into ServiceStack asp.net project (generates and copies dist to wwwroot)
 $ npm run server
-$ cross-env API_URL=http://localhost:5000 npm run generate
+$ npm run generate
 ```
 
 Typically static pages would be generated against a remote API, in which case, setting an API_URL env variable
