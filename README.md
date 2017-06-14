@@ -10,7 +10,7 @@ backend from frontend, static/ssr page example, http proxy, role-based visibilit
 -  Vue: [https://vuejs.org](https://vuejs.org) ([Vue.js docs](https://vuejs.org/v2/guide/))
     - Vuex ([Vuex docs](https://vuex.vuejs.org/en/))
 
-![servicestack-nuxt-example-thumb-video](https://user-images.githubusercontent.com/1571516/27110517-847088b6-506f-11e7-886b-5e13215cf6c9.png)
+[![servicestack-nuxt-example-thumb-video](https://user-images.githubusercontent.com/1571516/27110517-847088b6-506f-11e7-886b-5e13215cf6c9.png)](https://vimeo.com/221513068)
 
 ## Development
 
