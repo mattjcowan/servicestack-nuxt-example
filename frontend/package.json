@@ -1,0 +1,45 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "Nuxt.js project with ServiceStack backend",
+  "author": "Matt <@mattjcowan>",
+  "private": true,
+  "dependencies": {
+    "axios": "0.16.2",
+    "cross-env": "5.0.1",
+    "dotenv": "4.0.0",
+    "js-cookie": "2.1.4",
+    "jwt-decode": "2.2.0",
+    "normalize.css": "7.0.0",
+    "nuxt": "0.10.7",
+    "uuid": "3.0.1"
+  },
+  "scripts": {
+    "clean": "rimraf ./.nuxt & rimraf ./dist",
+    "server": "cd ../backend/WebApp && dotnet restore && dotnet build && dotnet run",
+    "dev": "node server.js",
+    "dev:local": "node server.js --api http://localhost:5000",
+    "build": "nuxt build",
+    "start": "cross-env NODE_ENV=production node server.js",
+    "generate": "npm run clean && nuxt generate && cpx \"dist/**/*.*\"  ../backend/WebApp/wwwroot",
+    "lint": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "cpx": "1.5.0",
+    "css-loader": "0.28.4",
+    "eslint": "^3.15.0",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-loader": "^1.6.1",
+    "eslint-plugin-html": "^2.0.0",
+    "eslint-plugin-promise": "^3.4.1",
+    "eslint-plugin-standard": "^2.0.1",
+    "express": "4.15.3",
+    "http-proxy": "1.16.2",
+    "morgan": "1.8.2",
+    "node-sass": "4.5.3",
+    "sass-loader": "6.0.5",
+    "style-loader": "0.18.2"
+  }
+}
