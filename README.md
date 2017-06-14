@@ -3,14 +3,14 @@
 Modeled after https://github.com/nuxt/example-auth0, with a few additions (separation of 
 backend from frontend, static/ssr page example, http proxy, role-based visibility and functionality ...)
 
-
-
 ## In this demo
 
 -  ServiceStack: [https://servicestack.net](https://servicestack.net) ([ServiceStack docs](http://docs.servicestack.net/))
 -  Nuxt: [https://nuxtjs.org](https://nuxtjs.org) ([Nuxt.js docs](https://github.com/nuxt/nuxt.js))
 -  Vue: [https://vuejs.org](https://vuejs.org) ([Vue.js docs](https://vuejs.org/v2/guide/))
     - Vuex ([Vuex docs](https://vuex.vuejs.org/en/))
+
+![servicestack-nuxt-example-thumb-video](https://user-images.githubusercontent.com/1571516/27110517-847088b6-506f-11e7-886b-5e13215cf6c9.png)
 
 ## Development
 
