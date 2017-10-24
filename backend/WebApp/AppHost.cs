@@ -119,7 +119,7 @@ namespace WebApp
 	public class ServerInfoRequest
 	{
 
-	}
+    }
 
     public class CustomUserSession: AuthUserSession
     {
@@ -135,11 +135,8 @@ namespace WebApp
                     profileUrl = userAuth.Meta?.GetValueOrDefault("picture");
                 }
             }
-            if (!string.IsNullOrWhiteSpace(profileUrl)) 
-            {
-                session.ProfileUrl = profileUrl;
-                authService.SaveSession(session);
-            }
+            session.ProfileUrl = string.IsNullOrWhiteSpace(profileUrl) ? "/images/avatar2-bw.png" : profileUrl;
+            authService.SaveSession(session);
         }
     }
 

@@ -32,7 +32,7 @@ module.exports = {
   },
   css: [
     'normalize.css',
-    '~assets/main.scss'
+    '~/assets/main.scss'
   ],
   env: {
     baseUrl: process.env.BASE_URL || '',

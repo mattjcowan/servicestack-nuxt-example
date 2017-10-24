@@ -1,4 +1,4 @@
-const Nuxt = require('nuxt')
+const { Nuxt, Builder } = require('nuxt')
 const morgan = require('morgan')
 const httpProxy = require('http-proxy')
 const app = require('express')()
@@ -65,16 +65,19 @@ const port = process.env.PORT || 3000
 let config = require('./nuxt.config.js')
 config.dev = isDev
 const nuxt = new Nuxt(config)
-app.use(nuxt.render)
 
 // Build only in dev mode
 if (config.dev) {
-  nuxt.build()
-  .catch((error) => {
-    console.error(error)
-    process.exit(1)
-  })
+  const builder = new Builder(nuxt)
+  builder.build()
+    .catch((error) => {
+      console.error(error)
+      process.exit(1)
+    })
 }
+
+// Give nuxt middleware to express
+app.use(nuxt.render)
 
 // Listen the server
 app.listen(port)

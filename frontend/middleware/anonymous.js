@@ -1,4 +1,4 @@
-import types from '../store/types'
+import types from '../utils/types'
 
 // middleware to ensure user is anonymous, otherwise redirect the user (useful for a login page for example)
 

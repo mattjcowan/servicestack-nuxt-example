@@ -1,5 +1,5 @@
 import { getUserFromCookie, getUserFromLocalStorage } from '~/utils/auth'
-import types from '~/store/types'
+import types from '~/utils/types'
 
 export default function ({ isServer, store, req }) {
   // If running 'nuxt generate', then ignore the middleware, user will always be logged out

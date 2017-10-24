@@ -18,8 +18,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import SuperSecretDiv from '~components/SuperSecretDiv'
-import types from '~/store/types'
+import SuperSecretDiv from '~/components/SuperSecretDiv'
+import types from '~/utils/types'
 
 export default {
   computed: mapGetters([
