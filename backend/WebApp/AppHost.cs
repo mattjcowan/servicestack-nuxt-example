@@ -16,7 +16,7 @@ namespace WebApp
         // Create a runtime id that lets you track if the server has restarted or not
         public static string RuntimeId = Guid.NewGuid().ToString("N");
 
-        public AppHost(string applicationName): base(applicationName, typeof(AppHost).GetAssembly())
+        public AppHost(string applicationName): base(applicationName, typeof(AppHost).Assembly)
         {
             this.ApplicationName = applicationName;
         }
