@@ -50,7 +50,8 @@ module.exports = {
   */
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/auth'
   ],
 
   /*
@@ -72,10 +73,23 @@ module.exports = {
   },
 
   /*
-  ** Router configuration
+  ** Auth configuration
   */
-  router: {
-    middleware: [ 'check-auth' ]
+  auth: {
+    plugins: [ '~/plugins/auth.js' ],
+    redirect: {
+      login: '/auth/sign-in',
+      home: '/'
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/api/auth/credentials', method: 'post', propertyName: 'bearerToken' },
+          logout: { url: '/api/auth/logout', method: 'post' },
+          user: { url: '/api/me', method: 'get', propertyName: 'result' }
+        }
+      }
+    }
   },
 
   /*

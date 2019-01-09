@@ -1,12 +1,14 @@
 <template>
-  <div 
-    v-if="getUser" 
+  <div
+    v-if="getUser"
     class="content">
-    <super-secret-div 
-      v-if="isAdmin" 
+    <super-secret-div
+      v-if="isAdmin"
       identifier="admin"/>
-    <img :src="getUser.picture">
-    <p>Hi {{ getUser.name }}!</p>
+    <img
+      v-if="picture"
+      :src="picture">
+    <p>Hi {{ getUser.displayName }}!</p>
     <p>This is a super secure page! Try loading this page again using the incognito/private mode of your browser.</p>
   </div>
 </template>

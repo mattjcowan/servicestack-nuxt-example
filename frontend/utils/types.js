@@ -5,10 +5,8 @@ export default {
     getServerInfo: 'getServerInfo'
   },
   actions: {
-    setUser: 'SET_USER'
   },
   mutations: {
-    setUser: 'SET_USER',
     setServerInfo: 'SET_SERVER_INFO'
   }
 }

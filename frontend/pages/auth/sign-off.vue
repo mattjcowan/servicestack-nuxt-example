@@ -3,13 +3,9 @@
 </template>
 
 <script>
-import { unsetToken } from '~/utils/auth'
-import { logout } from '~/utils/api'
-
 export default {
   async mounted () {
-    await logout()
-    unsetToken()
+    await this.$auth.logout()
     this.$router.push('/')
   }
 }

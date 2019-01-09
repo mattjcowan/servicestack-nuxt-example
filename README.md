@@ -77,9 +77,10 @@ both for larger projects.
 - 01/08/2018
 
   - Upgraded to Nuxt v2.3.4
-  - Added @nuxt/axios and @nuxt/proxy modules
   - Updated backend to aspnet core 2.2
   - Updated ServiceStack to latest v5 version
+  - Added @nuxtjs/axios, @nuxtjs/proxy, @nuxtjs/auth modules
+  - Refactored auth to use the `auth` module (a simpler implementation as a result)
 
 - 12/15/2017
 

@@ -120,6 +120,11 @@ namespace WebApp
 	{
 
     }
+	[Route("/me", "GET")]
+	public class MeRequest
+	{
+
+    }
 
     public class CustomUserSession: AuthUserSession
     {
@@ -154,6 +159,26 @@ namespace WebApp
                     Routes = ServiceStackHost.Instance.RestPaths,
                     Session = base.GetSession(false)
                 }
+            };
+        }
+
+        public object Get(MeRequest request)
+        {
+            // work on a clone object
+            var userAuth = (base.IsAuthenticated ?
+                base.AuthRepository.GetUserAuthByUserName(GetSession(false).UserName):
+                null)?.ToJson().FromJson<UserAuth>();
+            if (userAuth != null)
+            {
+                userAuth.PasswordHash = null;
+                userAuth.Salt = null;
+                userAuth.RefId = null;
+                userAuth.RefIdStr = null;
+                userAuth.DigestHa1Hash = null;
+            }
+            return new
+            {
+                Result = userAuth
             };
         }
     }

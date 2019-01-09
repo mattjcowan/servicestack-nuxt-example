@@ -2,19 +2,19 @@
   <div id="sign-in">
 
     <h1>Sign Up</h1>
-    <form 
-      autocomplete="off" 
-      @submit="signup">
+    <form
+      autocomplete="off"
+      @submit.prevent="signup">
 
       <div>
         <div>
           <label>Username</label>
         </div>
         <div>
-          <input 
-            v-model="username" 
-            name="username" 
-            type="text" 
+          <input
+            v-model="username"
+            name="username"
+            type="text"
             required>
         </div>
       </div>
@@ -24,10 +24,10 @@
           <label>Password</label>
         </div>
         <div>
-          <input 
-            v-model="password" 
-            name="pwd" 
-            type="password" 
+          <input
+            v-model="password"
+            name="pwd"
+            type="password"
             required>
         </div>
       </div>
@@ -37,10 +37,10 @@
           <label>Confirm Password</label>
         </div>
         <div>
-          <input 
-            v-model="confirmpassword" 
-            name="pwd2" 
-            type="password" 
+          <input
+            v-model="confirmpassword"
+            name="pwd2"
+            type="password"
             required>
         </div>
       </div>
@@ -50,10 +50,10 @@
           <label>Display Name</label>
         </div>
         <div>
-          <input 
-            v-model="displayname" 
-            name="displayname" 
-            type="text" 
+          <input
+            v-model="displayname"
+            name="displayname"
+            type="text"
             required>
         </div>
       </div>
@@ -63,16 +63,16 @@
           <label>Email</label>
         </div>
         <div>
-          <input 
-            v-model="email" 
-            name="email" 
-            type="email" 
+          <input
+            v-model="email"
+            name="email"
+            type="email"
             required>
         </div>
       </div>
 
-      <div 
-        v-if="error" 
+      <div
+        v-if="error"
         style="color: red;">
         <p>{{ error }}</p>
       </div>
@@ -88,14 +88,12 @@
 </template>
 
 <script>
-import { getQueryParams } from '~/utils/auth'
 import { register, extractErrorMessage } from '~/utils/api'
 
 export default {
   middleware: 'anonymous',
   data () {
     return {
-      redirect: null,
       username: null,
       password: null,
       confirmpassword: null,
@@ -105,24 +103,30 @@ export default {
     }
   },
   computed: {
+    redirect() {
+      return (
+        this.$route.query.redirect &&
+        decodeURIComponent(this.$route.query.redirect)
+      )
+    },
+    registered() {
+      return (
+        (this.$route.query.registered || '') === 'true'
+      )
+    },
     signInUrl () {
-      return '/auth/sign-in?redirect=' + this.redirect
+      return '/auth/sign-in?' + (this.redirect ? `redirect=${this.redirect}`: '')
     }
-  },
-  mounted () {
-    const { redirect, registered } = getQueryParams()
-    this.registered = registered === 'true'
-    this.redirect = decodeURIComponent(redirect || '/')
   },
   methods: {
     async signup (event) {
-      event.preventDefault()
       this.error = null
       if (this.confirmpassword !== this.password) {
         this.error = 'Passwords don\'t match'
         return
       }
       try {
+        await this.$auth.logout()
         await register(this.username, '', '', this.displayname, this.email, this.password)
         this.$router.push(this.signInUrl + '&registered=true')
       } catch (err) {

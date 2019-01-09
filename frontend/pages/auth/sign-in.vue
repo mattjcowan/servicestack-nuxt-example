@@ -2,19 +2,19 @@
   <div id="sign-in">
 
     <h1>Sign In</h1>
-    <form 
-      autocomplete="off" 
-      @submit="signin">
+    <form
+      autocomplete="off"
+      @submit.prevent="signin">
 
       <div>
         <div>
           <label>Username</label>
         </div>
         <div>
-          <input 
-            v-model="username" 
-            name="username" 
-            type="text" 
+          <input
+            v-model="username"
+            name="username"
+            type="text"
             required>
         </div>
       </div>
@@ -24,32 +24,32 @@
           <label>Password</label>
         </div>
         <div>
-          <input 
-            v-model="password" 
-            name="pwd" 
-            type="password" 
+          <input
+            v-model="password"
+            name="pwd"
+            type="password"
             required>
         </div>
       </div>
 
       <div>
-        <input 
-          id="RememberMe" 
-          v-model="rememberme" 
-          name="rememberme" 
-          type="checkbox" 
+        <input
+          id="RememberMe"
+          v-model="rememberme"
+          name="rememberme"
+          type="checkbox"
           class="rememberMe" >
         <label for="RememberMe">Remember Me</label>
       </div>
 
-      <div 
-        v-if="registered" 
+      <div
+        v-if="registered"
         style="color: green;">
         <p>Successfully registered, you are ready to login</p>
       </div>
 
-      <div 
-        v-if="error" 
+      <div
+        v-if="error"
         style="color: red;">
         <p>{{ error }}</p>
       </div>
@@ -66,15 +66,12 @@
 </template>
 
 <script>
-import { unsetToken, setToken, setRefreshToken, getQueryParams } from '~/utils/auth'
-import { logout, login, extractErrorMessage } from '~/utils/api'
+import { extractErrorMessage } from '~/utils/api'
 
 export default {
   middleware: 'anonymous',
   data () {
     return {
-      registered: false,
-      redirect: null,
       username: null,
       password: null,
       rememberme: false,
@@ -82,29 +79,36 @@ export default {
     }
   },
   computed: {
+    redirect() {
+      return (
+        this.$route.query.redirect &&
+        decodeURIComponent(this.$route.query.redirect)
+      )
+    },
+    registered() {
+      return (
+        (this.$route.query.registered || '') === 'true'
+      )
+    },
     signUpUrl () {
-      return '/auth/sign-up?redirect=' + this.redirect
+      return '/auth/sign-up?' + (this.redirect ? `redirect=${this.redirect}`: '')
     }
-  },
-  mounted () {
-    const { redirect, registered } = getQueryParams()
-    this.registered = registered === 'true'
-    this.redirect = decodeURIComponent(redirect || '/')
   },
   methods: {
     async signin (event) {
-      event.preventDefault()
-      this.registered = false
       this.error = null
       try {
-        await logout()
-        unsetToken()
-        const response = await login(this.username, this.password, this.rememberme)
-        setToken(response.bearerToken)
-        setRefreshToken(response.refreshToken)
-        if (this.redirect.length === 0 || this.redirect.substr(0, 1) !== '/') {
-          this.redirect = '/' + this.redirect
-        }
+        await this.$auth.logout()
+        await this.$auth.loginWith('local', {
+          data: {
+            username: this.username,
+            password: this.password,
+            rememberme: this.rememberme,
+            usetokencookie: true
+          }
+        })
+        let redirectUrl = (this.redirect.length === 0 || this.redirect.substr(0, 1) !== '/') ?
+          ('/' + this.redirect): this.redirect
         this.$router.push(this.redirect)
       } catch (err) {
         this.error = extractErrorMessage(err, 'There was an error, unable to sign in with those credentials.')
