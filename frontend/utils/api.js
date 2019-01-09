@@ -1,4 +1,8 @@
-import axios from '~/plugins/axios'
+let axios
+
+export function setClient (axiosClient) {
+  axios = axiosClient
+}
 
 export const register = async (username, firstname, lastname, displayname, email, password) => {
   return (await axios.post('/api/auth/register', { username, firstname, lastname, displayname, email, password, autologin: false })).data

@@ -2,14 +2,20 @@
   <div id="sign-in">
 
     <h1>Sign In</h1>
-    <form autocomplete="off" v-on:submit="signin">
+    <form 
+      autocomplete="off" 
+      @submit="signin">
 
       <div>
         <div>
           <label>Username</label>
         </div>
         <div>
-          <input name="username" type="text" v-model="username" required>
+          <input 
+            v-model="username" 
+            name="username" 
+            type="text" 
+            required>
         </div>
       </div>
 
@@ -18,28 +24,41 @@
           <label>Password</label>
         </div>
         <div>
-          <input name="pwd" type="password" v-model="password" required>
+          <input 
+            v-model="password" 
+            name="pwd" 
+            type="password" 
+            required>
         </div>
       </div>
 
       <div>
-        <input id="RememberMe" name="rememberme" type="checkbox" class="rememberMe" v-model="rememberme" />
+        <input 
+          id="RememberMe" 
+          v-model="rememberme" 
+          name="rememberme" 
+          type="checkbox" 
+          class="rememberMe" >
         <label for="RememberMe">Remember Me</label>
       </div>
 
-      <div v-if="registered" style="color: green;">
+      <div 
+        v-if="registered" 
+        style="color: green;">
         <p>Successfully registered, you are ready to login</p>
       </div>
 
-      <div v-if="error" style="color: red;">
-        <p>{{error}}</p>
+      <div 
+        v-if="error" 
+        style="color: red;">
+        <p>{{ error }}</p>
       </div>
 
       <div >
         <button type="submit">Sign In</button>&nbsp;
       </div>
 
-      <p>Don't have an account yet? <nuxt-link v-bind:to="signUpUrl">Sign Up!</nuxt-link></p>
+      <p>Don't have an account yet? <nuxt-link :to="signUpUrl">Sign Up!</nuxt-link></p>
 
       <p style="font-size:smaller;"><i>(hint: admin/Pa$$w0rd, guest/Pa$$w0rd)</i></p>
     </form>
@@ -52,11 +71,6 @@ import { logout, login, extractErrorMessage } from '~/utils/api'
 
 export default {
   middleware: 'anonymous',
-  mounted () {
-    const { redirect, registered } = getQueryParams()
-    this.registered = registered === 'true'
-    this.redirect = decodeURIComponent(redirect || '/')
-  },
   data () {
     return {
       registered: false,
@@ -71,6 +85,11 @@ export default {
     signUpUrl () {
       return '/auth/sign-up?redirect=' + this.redirect
     }
+  },
+  mounted () {
+    const { redirect, registered } = getQueryParams()
+    this.registered = registered === 'true'
+    this.redirect = decodeURIComponent(redirect || '/')
   },
   methods: {
     async signin (event) {

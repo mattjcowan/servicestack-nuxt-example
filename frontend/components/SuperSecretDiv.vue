@@ -1,10 +1,12 @@
 <template>
-  <div :class="{ admin: (identifier === 'admin') }">This is a secret div for {{identifier || 'authenticated'}} users!</div>
+  <div :class="{ admin: (identifier === 'admin') }">This is a secret div for {{ identifier }} users!</div>
 </template>
 
 <script>
 export default {
-  props: ['identifier']
+  props: {
+    identifier: { type: String, default: 'anonymous' }
+  }
 }
 </script>
 

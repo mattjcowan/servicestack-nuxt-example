@@ -146,12 +146,13 @@ namespace WebApp
         {
             return new
             {
-                Result = new { 
+                Result = new {
                     RuntimeId = AppHost.RuntimeId,
                     ServerTime = DateTime.Now,
                     ServerTimeUtc = DateTime.UtcNow,
                     Plugins = ServiceStackHost.Instance.Plugins.Select(p => p.GetType().FullName).ToList(),
-                    Routes = ServiceStackHost.Instance.RestPaths
+                    Routes = ServiceStackHost.Instance.RestPaths,
+                    Session = base.GetSession(false)
                 }
             };
         }

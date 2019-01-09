@@ -15,9 +15,9 @@ namespace WebApp
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseServiceStack(new AppHost(env.ApplicationName));
-
 
             app.Run(async (context) =>
             {

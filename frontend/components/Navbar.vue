@@ -1,11 +1,19 @@
 <template>
   <div class="header">
-    <nuxt-link to="/" exact>Home</nuxt-link>
+    <nuxt-link 
+      to="/" 
+      exact>Home</nuxt-link>
     <nuxt-link to="/about">About</nuxt-link>
     <nuxt-link to="/docs">Docs</nuxt-link>
-    <nuxt-link v-if="isAuthenticated" to="/secret">Top Secret</nuxt-link>
-    <nuxt-link v-if="!isAuthenticated" to="/auth/sign-in">Sign In</nuxt-link>
-    <nuxt-link v-else to="/auth/sign-off">Sign Off</nuxt-link>
+    <nuxt-link 
+      v-if="isAuthenticated" 
+      to="/secret">Top Secret</nuxt-link>
+    <nuxt-link 
+      v-if="!isAuthenticated" 
+      to="/auth/sign-in">Sign In</nuxt-link>
+    <nuxt-link 
+      v-else 
+      to="/auth/sign-off">Sign Off</nuxt-link>
   </div>
 </template>
 

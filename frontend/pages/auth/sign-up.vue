@@ -2,14 +2,20 @@
   <div id="sign-in">
 
     <h1>Sign Up</h1>
-    <form autocomplete="off" v-on:submit="signup">
+    <form 
+      autocomplete="off" 
+      @submit="signup">
 
       <div>
         <div>
           <label>Username</label>
         </div>
         <div>
-          <input name="username" type="text" v-model="username" required>
+          <input 
+            v-model="username" 
+            name="username" 
+            type="text" 
+            required>
         </div>
       </div>
 
@@ -18,7 +24,11 @@
           <label>Password</label>
         </div>
         <div>
-          <input name="pwd" type="password" v-model="password" required>
+          <input 
+            v-model="password" 
+            name="pwd" 
+            type="password" 
+            required>
         </div>
       </div>
 
@@ -27,7 +37,11 @@
           <label>Confirm Password</label>
         </div>
         <div>
-          <input name="pwd2" type="password" v-model="confirmpassword" required>
+          <input 
+            v-model="confirmpassword" 
+            name="pwd2" 
+            type="password" 
+            required>
         </div>
       </div>
 
@@ -36,7 +50,11 @@
           <label>Display Name</label>
         </div>
         <div>
-          <input name="displayname" type="text" v-model="displayname" required>
+          <input 
+            v-model="displayname" 
+            name="displayname" 
+            type="text" 
+            required>
         </div>
       </div>
 
@@ -45,19 +63,25 @@
           <label>Email</label>
         </div>
         <div>
-          <input name="email" type="email" v-model="email" required>
+          <input 
+            v-model="email" 
+            name="email" 
+            type="email" 
+            required>
         </div>
       </div>
 
-      <div v-if="error" style="color: red;">
-        <p>{{error}}</p>
+      <div 
+        v-if="error" 
+        style="color: red;">
+        <p>{{ error }}</p>
       </div>
 
       <div >
         <button type="submit">Sign Up</button>&nbsp;
       </div>
 
-      <p>Already have an account? <nuxt-link v-bind:to="signInUrl">Sign In!</nuxt-link></p>
+      <p>Already have an account? <nuxt-link :to="signInUrl">Sign In!</nuxt-link></p>
 
     </form>
   </div>
@@ -69,11 +93,6 @@ import { register, extractErrorMessage } from '~/utils/api'
 
 export default {
   middleware: 'anonymous',
-  mounted () {
-    const { redirect, registered } = getQueryParams()
-    this.registered = registered === 'true'
-    this.redirect = decodeURIComponent(redirect || '/')
-  },
   data () {
     return {
       redirect: null,
@@ -89,6 +108,11 @@ export default {
     signInUrl () {
       return '/auth/sign-in?redirect=' + this.redirect
     }
+  },
+  mounted () {
+    const { redirect, registered } = getQueryParams()
+    this.registered = registered === 'true'
+    this.redirect = decodeURIComponent(redirect || '/')
   },
   methods: {
     async signup (event) {
