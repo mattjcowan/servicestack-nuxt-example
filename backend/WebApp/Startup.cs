@@ -10,19 +10,18 @@ namespace WebApp
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
-        {
-        }
+        { }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseServiceStack(new AppHost(env.ApplicationName));
 
-            app.Run(async (context) =>
+            app.Run(async(context) =>
             {
                 await context.Response.WriteAsync("Hello World!");
             });
-		}
+        }
     }
 }

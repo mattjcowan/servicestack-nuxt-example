@@ -1,9 +1,7 @@
 # Simple demo of using ServiceStack and Nuxt.js together
 
-Modeled after https://github.com/nuxt/example-auth0, with a few additions (separation of 
-backend from frontend, static/ssr page example, http proxy, role-based visibility and functionality ...)
-
-Works in both SSR and static mode, with and without proxy.
+Modeled after <https://github.com/nuxt/example-auth0>, with a few additions (separation of
+backend from frontend, http proxy in dev mode, role-based visibility and functionality ...)
 
 ## In this demo
 
@@ -28,7 +26,7 @@ $ npm install # Or yarn install
 
 ### Run the ServiceStack backend (will automatically run dotnet restore, build, etc...)
 
-To run ServiceStack, you'll need [.NET Core 2.2](https://dotnet.microsoft.com/download)
+To run ServiceStack, you'll need [.NET Core 3.1](https://dotnet.microsoft.com/download)
 
 ```bash
 # start the ServiceStack backend in a terminal (from within the frontend directory)
@@ -60,10 +58,10 @@ $ npm start
 Generate as a static project and merge the files into the ServiceStack asp.net project (generates and copies dist to wwwroot)
 
 ```bash
-$ # run the server so that required API calls are resolved during the generate process
-$ npm run server
-$ # generate the static app
-$ npm run generate
+# (Optional) run the server so that required API calls are resolved during the generate process
+npm run server
+# generate the static app
+npm run generate
 ```
 
 Typically static pages would be generated against a remote API, in which case, setting an API_URL env variable
@@ -73,6 +71,12 @@ Furthermore, you could then separate the backend into it's own repo and split up
 both for larger projects.
 
 ## Changelog
+
+- 09/28/2020
+
+  - Upgraded to Nuxt 2.14.5
+  - Updated backend to aspnet core 3.1
+  - Small refactors to simplify authentication a little further
 
 - 01/08/2018
 

@@ -1,11 +1,28 @@
 let axios
 
-export function setClient (axiosClient) {
+export function setClient(axiosClient) {
   axios = axiosClient
 }
 
-export const register = async (username, firstname, lastname, displayname, email, password) => {
-  return (await axios.post('/api/auth/register', { username, firstname, lastname, displayname, email, password, autologin: false })).data
+export const register = async (
+  username,
+  firstname,
+  lastname,
+  displayname,
+  email,
+  password
+) => {
+  return (
+    await axios.post('/api/auth/register', {
+      username,
+      firstname,
+      lastname,
+      displayname,
+      email,
+      password,
+      autologin: false,
+    })
+  ).data
 }
 
 /* Sample response:
@@ -55,9 +72,16 @@ export const extractErrorMessage = (err, defaultIfNull) => {
   let message = defaultIfNull
   let responseStatus = null
   if (err && err.responseStatus) responseStatus = err.responseStatus
-  else if (err && err.response && err.response.data && err.response.data.responseStatus) responseStatus = err.response.data.responseStatus
+  else if (
+    err &&
+    err.response &&
+    err.response.data &&
+    err.response.data.responseStatus
+  )
+    responseStatus = err.response.data.responseStatus
   if (responseStatus !== null) {
-    if (responseStatus.errors && responseStatus.errors.length > 0) message = responseStatus.errors[0].message
+    if (responseStatus.errors && responseStatus.errors.length > 0)
+      message = responseStatus.errors[0].message
     else message = responseStatus.message
   }
   return message

@@ -1,9 +1,9 @@
 <template>
   <div class="app">
-    <fork-this/>
+    <fork-this />
     <div class="main">
-      <navbar/>
-      <nuxt/>
+      <navbar />
+      <nuxt />
     </div>
   </div>
 </template>
@@ -11,13 +11,12 @@
 <script>
 import Navbar from '~/components/Navbar'
 import ForkThis from '~/components/ForkThis'
-import types from '~/utils/types'
 
 export default {
   components: {
     Navbar,
-    ForkThis
-  }
+    ForkThis,
+  },
 }
 </script>
 

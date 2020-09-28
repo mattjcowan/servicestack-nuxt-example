@@ -2,11 +2,10 @@ export default {
   getters: {
     isAuthenticated: 'isAuthenticated',
     getUser: 'getUser',
-    getServerInfo: 'getServerInfo'
+    getServerInfo: 'getServerInfo',
   },
-  actions: {
-  },
+  actions: {},
   mutations: {
-    setServerInfo: 'SET_SERVER_INFO'
-  }
+    setServerInfo: 'SET_SERVER_INFO',
+  },
 }

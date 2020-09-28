@@ -1,8 +1,6 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "description": "Nuxt.js project with ServiceStack backend",
-  "author": "Matt &lt;@mattjcowan&gt;",
   "private": true,
   "scripts": {
     "clean": "rimraf ./.nuxt & rimraf ./dist",
@@ -11,25 +9,28 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "npm run clean && nuxt generate && cpx \"dist/**/*.*\"  ../backend/WebApp/wwwroot",
-    "lint": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
+    "lint:js": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
+    "lint": "npm run lint:js"
   },
   "dependencies": {
-    "@nuxtjs/auth": "4.5.3",
-    "@nuxtjs/axios": "^5.0.0",
-    "@nuxtjs/proxy": "1.3.1",
-    "cpx": "1.5.0",
-    "cross-env": "^5.2.0",
-    "normalize.css": "8.0.1",
-    "nuxt": "^2.0.0"
+    "@nuxtjs/auth": "^4.9.1",
+    "@nuxtjs/axios": "^5.12.2",
+    "core-js": "^3.6.5",
+    "normalize.css": "^8.0.1",
+    "nuxt": "^2.14.5"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.1",
-    "eslint": "^5.0.1",
-    "eslint-loader": "^2.0.0",
-    "eslint-plugin-vue": "^4.0.0",
-    "node-sass": "4.11.0",
-    "nodemon": "^1.11.0",
-    "sass-loader": "7.1.0"
+    "@nuxtjs/eslint-config": "^3.1.0",
+    "@nuxtjs/eslint-module": "^2.0.0",
+    "babel-eslint": "^10.1.0",
+    "cpx": "^1.5.0",
+    "eslint": "^7.8.1",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-nuxt": "^1.0.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "node-sass": "^4.14.1",
+    "prettier": "^2.1.1",
+    "rimraf": "^3.0.2",
+    "sass-loader": "^10.0.2"
   }
 }

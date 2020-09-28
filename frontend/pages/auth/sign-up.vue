@@ -1,21 +1,13 @@
 <template>
   <div id="sign-in">
-
     <h1>Sign Up</h1>
-    <form
-      autocomplete="off"
-      @submit.prevent="signup">
-
+    <form autocomplete="off" @submit.prevent="signup">
       <div>
         <div>
           <label>Username</label>
         </div>
         <div>
-          <input
-            v-model="username"
-            name="username"
-            type="text"
-            required>
+          <input v-model="username" name="username" type="text" required />
         </div>
       </div>
 
@@ -24,11 +16,7 @@
           <label>Password</label>
         </div>
         <div>
-          <input
-            v-model="password"
-            name="pwd"
-            type="password"
-            required>
+          <input v-model="password" name="pwd" type="password" required />
         </div>
       </div>
 
@@ -41,7 +29,8 @@
             v-model="confirmpassword"
             name="pwd2"
             type="password"
-            required>
+            required
+          />
         </div>
       </div>
 
@@ -54,7 +43,8 @@
             v-model="displayname"
             name="displayname"
             type="text"
-            required>
+            required
+          />
         </div>
       </div>
 
@@ -63,26 +53,19 @@
           <label>Email</label>
         </div>
         <div>
-          <input
-            v-model="email"
-            name="email"
-            type="email"
-            required>
+          <input v-model="email" name="email" type="email" required />
         </div>
       </div>
 
-      <div
-        v-if="error"
-        style="color: red;">
+      <div v-if="error" style="color: red">
         <p>{{ error }}</p>
       </div>
 
-      <div >
-        <button type="submit">Sign Up</button>&nbsp;
-      </div>
+      <div><button type="submit">Sign Up</button>&nbsp;</div>
 
-      <p>Already have an account? <nuxt-link :to="signInUrl">Sign In!</nuxt-link></p>
-
+      <p>
+        Already have an account? <nuxt-link :to="signInUrl">Sign In!</nuxt-link>
+      </p>
     </form>
   </div>
 </template>
@@ -92,14 +75,14 @@ import { register, extractErrorMessage } from '~/utils/api'
 
 export default {
   middleware: 'anonymous',
-  data () {
+  data() {
     return {
       username: null,
       password: null,
       confirmpassword: null,
       displayname: null,
       email: null,
-      error: null
+      error: null,
     }
   },
   computed: {
@@ -110,30 +93,40 @@ export default {
       )
     },
     registered() {
+      return (this.$route.query.registered || '') === 'true'
+    },
+    signInUrl() {
       return (
-        (this.$route.query.registered || '') === 'true'
+        '/auth/sign-in?' + (this.redirect ? `redirect=${this.redirect}` : '')
       )
     },
-    signInUrl () {
-      return '/auth/sign-in?' + (this.redirect ? `redirect=${this.redirect}`: '')
-    }
   },
   methods: {
-    async signup (event) {
+    async signup(event) {
       this.error = null
       if (this.confirmpassword !== this.password) {
-        this.error = 'Passwords don\'t match'
+        this.error = "Passwords don't match"
         return
       }
       try {
         await this.$auth.logout()
-        await register(this.username, '', '', this.displayname, this.email, this.password)
+        await register(
+          this.username,
+          '',
+          '',
+          this.displayname,
+          this.email,
+          this.password
+        )
         this.$router.push(this.signInUrl + '&registered=true')
       } catch (err) {
-        this.error = extractErrorMessage(err, 'There was an error, unable to register with those credentials.')
+        this.error = extractErrorMessage(
+          err,
+          'There was an error, unable to register with those credentials.'
+        )
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -142,8 +135,12 @@ export default {
   width: 100%;
   text-align: center;
 
-  a { cursor: pointer; }
-  input[type='checkbox'] { margin-right: 10px; }
+  a {
+    cursor: pointer;
+  }
+  input[type='checkbox'] {
+    margin-right: 10px;
+  }
   div {
     margin-bottom: 10px;
   }

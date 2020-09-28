@@ -1,26 +1,23 @@
 <template>
   <div>
-    <super-secret-div
-      v-if="isAuthenticated"
-      identifier="authenticated" />
+    <super-secret-div v-if="isAuthenticated" identifier="authenticated" />
     <div class="content">
-      <h1>Hello, {{ getUser ? getUser.name : 'friend' }}!</h1>
+      <h1>Hello, {{ userDisplayName }}!</h1>
       <p>
-        This is a super simple example of how to use <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank">Nuxt.js</a> and <a
-            hrf="https://servicestack.net"
-            target="_blank">ServiceStack</a> together.
+        This is a super simple example of how to use
+        <a href="https://github.com/nuxt/nuxt.js" target="_blank">Nuxt.js</a>
+        and
+        <a hrf="https://servicestack.net" target="_blank">ServiceStack</a>
+        together.
       </p>
       <p v-if="!isAuthenticated">
-        You're not authenticated yet. Maybe you want to <nuxt-link
-          to="/auth/sign-in"
-          class="link">sign in</nuxt-link> and see what happens?
+        You're not authenticated yet. Maybe you want to
+        <nuxt-link to="/auth/sign-in" class="link">sign in</nuxt-link> and see
+        what happens?
       </p>
       <p v-else>
-        Now that you're authenticated, maybe you should try going to our <nuxt-link
-          to="/secret"
-          class="link">top secret page</nuxt-link>!
+        Now that you're authenticated, maybe you should try going to our
+        <nuxt-link to="/secret" class="link">top secret page</nuxt-link>!
       </p>
     </div>
   </div>
@@ -33,12 +30,15 @@ import types from '~/utils/types'
 
 export default {
   components: {
-    SuperSecretDiv
+    SuperSecretDiv,
   },
-  computed: mapGetters([
-    types.getters.isAuthenticated,
-    types.getters.getUser
-  ])
+  computed: {
+    ...mapGetters([types.getters.isAuthenticated, types.getters.getUser]),
+    userDisplayName() {
+      const user = this.getUser
+      return user && user.displayName ? user.displayName : 'friend'
+    },
+  },
 }
 </script>
 

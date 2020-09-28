@@ -4,7 +4,10 @@ export default function ({ app }) {
   if (!app.$auth.loggedIn) {
     return
   }
+
+  // eslint-disable-next-line no-unused-vars
   const user = app.$auth.user
+
   /*
   {
     id: 1,

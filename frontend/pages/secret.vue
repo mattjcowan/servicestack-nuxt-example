@@ -1,15 +1,12 @@
 <template>
-  <div
-    v-if="getUser"
-    class="content">
-    <super-secret-div
-      v-if="isAdmin"
-      identifier="admin"/>
-    <img
-      v-if="picture"
-      :src="picture">
+  <div v-if="getUser" class="content">
+    <super-secret-div v-if="isAdmin" identifier="admin" />
+    <img v-if="picture" :src="picture" />
     <p>Hi {{ getUser.displayName }}!</p>
-    <p>This is a super secure page! Try loading this page again using the incognito/private mode of your browser.</p>
+    <p>
+      This is a super secure page! Try loading this page again using the
+      incognito/private mode of your browser.
+    </p>
   </div>
 </template>
 
@@ -21,18 +18,18 @@ import types from '~/utils/types'
 export default {
   middleware: 'authenticated',
   components: {
-    SuperSecretDiv
+    SuperSecretDiv,
   },
   computed: {
     ...mapGetters([types.getters.getUser]),
-    isAdmin () {
-      return (this[types.getters.getUser].roles || []).indexOf('Admin') > -1
+    isAdmin() {
+      return (this[types.getters.getUser].roles || []).includes('Admin')
     },
-    picture () {
+    picture() {
       const user = this[types.getters.getUser]
       return user && user.meta ? user.meta.picture : null
-    }
-  }
+    },
+  },
 }
 </script>
 

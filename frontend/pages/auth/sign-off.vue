@@ -4,9 +4,9 @@
 
 <script>
 export default {
-  async mounted () {
+  async mounted() {
     await this.$auth.logout()
     this.$router.push('/')
-  }
+  },
 }
 </script>

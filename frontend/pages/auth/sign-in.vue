@@ -1,21 +1,13 @@
 <template>
   <div id="sign-in">
-
     <h1>Sign In</h1>
-    <form
-      autocomplete="off"
-      @submit.prevent="signin">
-
+    <form autocomplete="off" @submit.prevent="signin">
       <div>
         <div>
           <label>Username</label>
         </div>
         <div>
-          <input
-            v-model="username"
-            name="username"
-            type="text"
-            required>
+          <input v-model="username" name="username" type="text" required />
         </div>
       </div>
 
@@ -24,11 +16,7 @@
           <label>Password</label>
         </div>
         <div>
-          <input
-            v-model="password"
-            name="pwd"
-            type="password"
-            required>
+          <input v-model="password" name="pwd" type="password" required />
         </div>
       </div>
 
@@ -38,29 +26,29 @@
           v-model="rememberme"
           name="rememberme"
           type="checkbox"
-          class="rememberMe" >
+          class="rememberMe"
+        />
         <label for="RememberMe">Remember Me</label>
       </div>
 
-      <div
-        v-if="registered"
-        style="color: green;">
+      <div v-if="registered" style="color: green">
         <p>Successfully registered, you are ready to login</p>
       </div>
 
-      <div
-        v-if="error"
-        style="color: red;">
+      <div v-if="error" style="color: red">
         <p>{{ error }}</p>
       </div>
 
-      <div >
-        <button type="submit">Sign In</button>&nbsp;
-      </div>
+      <div><button type="submit">Sign In</button>&nbsp;</div>
 
-      <p>Don't have an account yet? <nuxt-link :to="signUpUrl">Sign Up!</nuxt-link></p>
+      <p>
+        Don't have an account yet?
+        <nuxt-link :to="signUpUrl">Sign Up!</nuxt-link>
+      </p>
 
-      <p style="font-size:smaller;"><i>(hint: admin/Pa$$w0rd, guest/Pa$$w0rd)</i></p>
+      <p style="font-size: smaller">
+        <i>(hint: admin/Pa$$w0rd, guest/Pa$$w0rd)</i>
+      </p>
     </form>
   </div>
 </template>
@@ -70,32 +58,31 @@ import { extractErrorMessage } from '~/utils/api'
 
 export default {
   middleware: 'anonymous',
-  data () {
+  data() {
     return {
       username: null,
       password: null,
       rememberme: false,
-      error: null
+      error: null,
     }
   },
   computed: {
     redirect() {
-      return (
-        this.$route.query.redirect &&
-        decodeURIComponent(this.$route.query.redirect)
-      )
+      return this.$route.query.redirect
+        ? decodeURIComponent(this.$route.query.redirect)
+        : '/'
     },
     registered() {
+      return (this.$route.query.registered || '') === 'true'
+    },
+    signUpUrl() {
       return (
-        (this.$route.query.registered || '') === 'true'
+        '/auth/sign-up?' + (this.redirect ? `redirect=${this.redirect}` : '')
       )
     },
-    signUpUrl () {
-      return '/auth/sign-up?' + (this.redirect ? `redirect=${this.redirect}`: '')
-    }
   },
   methods: {
-    async signin (event) {
+    async signin(event) {
       this.error = null
       try {
         await this.$auth.logout()
@@ -104,17 +91,22 @@ export default {
             username: this.username,
             password: this.password,
             rememberme: this.rememberme,
-            usetokencookie: true
-          }
+            usetokencookie: true,
+          },
         })
-        let redirectUrl = (this.redirect.length === 0 || this.redirect.substr(0, 1) !== '/') ?
-          ('/' + this.redirect): this.redirect
-        this.$router.push(this.redirect)
+        const redirectUrl =
+          this.redirect.length === 0 || this.redirect.substr(0, 1) !== '/'
+            ? '/' + this.redirect
+            : this.redirect
+        this.$router.push(redirectUrl)
       } catch (err) {
-        this.error = extractErrorMessage(err, 'There was an error, unable to sign in with those credentials.')
+        this.error = extractErrorMessage(
+          err,
+          'There was an error, unable to sign in with those credentials.'
+        )
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -123,8 +115,12 @@ export default {
   width: 100%;
   text-align: center;
 
-  a { cursor: pointer; }
-  input[type='checkbox'] { margin-right: 10px; }
+  a {
+    cursor: pointer;
+  }
+  input[type='checkbox'] {
+    margin-right: 10px;
+  }
   div {
     margin-bottom: 10px;
   }
